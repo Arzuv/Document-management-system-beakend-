@@ -35,10 +35,28 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	// for to work with hibernate
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' 
+	implementation 'org.postgresql:postgresql'
+	// implementation 'com.h2database:h2:1.4.191'
+	compile(group: 'org.postgresql', name: 'postgresql', version: '42.0.0')
+	//for to spring security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security:spring-security-test'
+	implementation 'io.jsonwebtoken:jjwt:0.2'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+
+	// Work with documents
+	// instruction 'Bundle-Vendor', 'Aspose'
+	// instruction 'Bundle-Description', 'Export Web page content into Word Processing document using Aspose.Words for Java library'
+	// instruction 'Bundle-DocURL', 'http://www.aspose.com/'
+	// instruction 'Bundle-Activator', 'com.aspose.dotcms.words.Activator'
+	// instruction 'Bundle-ClassPath', '.,libs/aspose-words-16.2.0-jdk16.jar'
+	// instruction 'DynamicImport-Package', '*'
+	// instruction 'Import-Package', '!com.aspose.words.*,*;version=0
 }
-test {
-	useJUnitPlatform()
-}
+// test {
+// 	useJUnitPlatform().
+// }
