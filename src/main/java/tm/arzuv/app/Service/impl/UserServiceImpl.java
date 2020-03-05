@@ -11,7 +11,7 @@ import tm.arzuv.app.repository.UserRepository;
 
 @Component
 @Service
-public class UserServiceImpl implements UserService {
+public final class UserServiceImpl implements UserService {
     @Autowired
 	private UserRepository userRepository;
 	

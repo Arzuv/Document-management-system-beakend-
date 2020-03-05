@@ -19,21 +19,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/documents/")
 public class DocumentsPageRestController {
     
-    @Autowired
-    DocumentRepository documentRepository;
+    // @Autowired
+    // DocumentRepository documentRepository;
 
-    @Autowired
-    DocumentService documentService;
+    // @Autowired
+    // DocumentService documentService;
 
-    @GetMapping("all")
-    @ResponseBody
-    public ResponseEntity<List<DocumentViewModel>>cuments() {
-        List<DocumentViewModel> result = documentRepository.findAll().stream()
-                                    .map(document -> documentService.convertToDocumentViewModel(document))
-                                    .collect(Collectors.toList());
-        if (result == null)
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    // @GetMapping("all")
+    // @ResponseBody
+    // public ResponseEntity<List<DocumentViewModel>>cuments() {
+    //     List<DocumentViewModel> result = documentRepository.findAll().stream()
+    //                                 .map(document -> documentService.convertToDocumentViewModel(document))
+    //                                 .collect(Collectors.toList());
+    //     if (result == null)
+    //         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
+    //     return new ResponseEntity<>(result, HttpStatus.OK);
+    // }
 }
