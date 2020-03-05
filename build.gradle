@@ -44,19 +44,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.security:spring-security-test'
 	implementation 'io.jsonwebtoken:jjwt:0.2'
+	implementation 'com.auth0:java-jwt:3.10.0'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-
-	// Work with documents
-	// instruction 'Bundle-Vendor', 'Aspose'
-	// instruction 'Bundle-Description', 'Export Web page content into Word Processing document using Aspose.Words for Java library'
-	// instruction 'Bundle-DocURL', 'http://www.aspose.com/'
-	// instruction 'Bundle-Activator', 'com.aspose.dotcms.words.Activator'
-	// instruction 'Bundle-ClassPath', '.,libs/aspose-words-16.2.0-jdk16.jar'
-	// instruction 'DynamicImport-Package', '*'
-	// instruction 'Import-Package', '!com.aspose.words.*,*;version=0
 }
-// test {
-// 	useJUnitPlatform().
-// }

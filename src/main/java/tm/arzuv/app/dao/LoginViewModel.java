@@ -1,10 +1,9 @@
-package tm.arzuv.app.controller.ViewModel;
+package tm.arzuv.app.dao;
 
-public class UserAuthViewModel {
+public class LoginViewModel {
 
     private String email;
     private String password;
-
 
 	public String getEmail() {
 		return email;

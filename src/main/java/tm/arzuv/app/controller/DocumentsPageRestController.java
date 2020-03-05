@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import tm.arzuv.app.Service.DocumentService;
-import tm.arzuv.app.controller.ViewModel.DocumentViewModel;
+import tm.arzuv.app.dao.DocumentViewModel;
 import tm.arzuv.app.repository.DocumentRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin
 @RequestMapping("/documents/")
-public class WorkDocumentsPageController {
+public class DocumentsPageRestController {
     
     @Autowired
     DocumentRepository documentRepository;

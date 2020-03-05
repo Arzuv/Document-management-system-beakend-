@@ -1,15 +1,11 @@
-package tm.arzuv.app.Service;
+package tm.arzuv.app.Service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import tm.arzuv.app.Service.UserService;
-import tm.arzuv.app.controller.ViewModel.UserViewModel;
+import tm.arzuv.app.dao.UserViewModel;
 import tm.arzuv.app.model.User;
 import tm.arzuv.app.repository.UserRepository;
 

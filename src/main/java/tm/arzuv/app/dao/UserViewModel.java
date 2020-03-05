@@ -1,4 +1,4 @@
-package tm.arzuv.app.controller.ViewModel;
+package tm.arzuv.app.dao;
 
 public class UserViewModel {
     private int id;

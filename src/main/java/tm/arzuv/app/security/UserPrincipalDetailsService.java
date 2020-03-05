@@ -1,4 +1,4 @@
-package tm.arzuv.app.Service.principal;
+package tm.arzuv.app.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

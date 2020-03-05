@@ -1,4 +1,4 @@
-package tm.arzuv.app.Service.principal;
+package tm.arzuv.app.security;
 
 import java.util.Collection;
 
