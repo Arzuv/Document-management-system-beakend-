@@ -1,42 +1,68 @@
 package tm.arzuv.app.Service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import tm.arzuv.app.Service.UserService;
+
+import tm.arzuv.app.Service.DocumentService;
 import tm.arzuv.app.dao.DocumentViewModel;
 import tm.arzuv.app.model.Document;
 import tm.arzuv.app.repository.DocumentRepository;
-import tm.arzuv.app.repository.UserRepository;
 
 @Service
-public final class DocumentServiceImpl {
+public final class DocumentServiceImpl implements DocumentService {
     @Autowired
     private DocumentRepository documentRepository;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    public DocumentViewModel convertToDocumentViewModel(Document d) {
-        DocumentViewModel dvm = new DocumentViewModel();
-        dvm.setId(d.getId());
-        dvm.setName_document(d.getName_document());
-        dvm.setStatus_document(d.isStatus_document());
-        dvm.setData_creat(d.getData_creat());
-        dvm.setFile_document(new String(d.getFile_document()));
-        dvm.setUser(userService.convertToUserViewModel(d.getUser()));
-        return dvm;
+	@Override
+	public List<Document> findAll() {
+		return documentRepository.findAll();
+    }
+    
+    @Override
+    public List<Document> findAllAndSort(String condition) {
+        return documentRepository.findAll(Sort.by(condition));
     }
 
+	@Override
+	public Document findById(int id) {
+		return documentRepository.findById(id);
+	}
+
+	@Override
+	public Document findByName(String name) {
+		return documentRepository.findByDname(name);
+	}
+
+	@Override
+	public List<Document> findByWhomContract(String whomContract) {
+		return documentRepository.findByWhomContract(whomContract);
+	}
+
+	@Override
+	public List<Document> findByWhoContracted(String whoContracted) {
+		return documentRepository.findByWhoContracted(whoContracted);
+	}
+
+	@Override
+	public Document save(Document d) {
+		return documentRepository.save(d);
+	}
+
+	@Override
+	public void delete(int id) {
+		documentRepository.deleteById(id);
+    }
+    @Override
+    public DocumentViewModel convertToDocumentViewModel(Document d) {
+        return new DocumentViewModel();
+    }
+    
+    @Override
     public Document convertToDocument(DocumentViewModel d) {
-        Document document = new Document();
-        document.setName_document(d.getName_document());
-        document.setData_creat(d.getData_creat());
-        document.setStatus_document(d.isStatus_document());
-        document.setFile_document(d.getFile_document().getBytes());
-        document.setUser(userRepository.findById(d.getUser().getId()));
-        return document;
+        
+        return new Document();
     }
 }

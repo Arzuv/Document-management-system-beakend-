@@ -23,10 +23,14 @@ create table roles (
 create table documents (
     id SERIAL primary key,
     user_id INTEGER not null,
-    name_document VARCHAR not null,
-    file_document bytea,
-    data_creat DATE not null,
-    status_document BOOLEAN not null,
+    dname VARCHAR not null,
+    whomContract VARCHAR NOT NULL,
+    whoContracted VARCHAR NOT NULL,
+    termOfExecution DATE NOT NULL,
+    dfile bytea,
+    created TIMESTAMP WITH TIME ZONE default CURRENT_TIMESTAMP,
+    updated TIMESTAMP WITH TIME ZONE default CURRENT_TIMESTAMP,
+    status STATUS_TYPE default 'ACTIVE',
     FOREIGN key (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 

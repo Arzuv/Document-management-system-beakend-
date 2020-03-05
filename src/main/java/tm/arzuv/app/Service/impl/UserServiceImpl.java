@@ -2,6 +2,7 @@ package tm.arzuv.app.Service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import tm.arzuv.app.Service.UserService;
@@ -21,6 +22,16 @@ public final class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public List<User> findAllAndSort(String condition) {
+		return userRepository.findAll(Sort.by(condition));
+	}
+
+	@Override
+	public User save(User u) {
+		return userRepository.save(u);
+	}
+
+	@Override
 	public User findById(int id) {
 		return userRepository.findById(id);
 	}
@@ -31,28 +42,28 @@ public final class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void delete(int id) {
-		userRepository.deleteById(id);
+	public boolean delete(int id) {
+		return userRepository.deleteById(id);
 	}
 
 	@Override
 	public UserViewModel convertToUserViewModel(User u) {
 		UserViewModel uvm = new UserViewModel();
-        uvm.setId(u.getId());
-        uvm.setEmail(u.getEmail());
-        uvm.setFirstname(u.getFirstname());
-        uvm.setLastname(u.getLastname());
+        // uvm.setId(u);
+        // uvm.setEmail(u.getEmail());
+        // uvm.setFirstname(u.getFirstname());
+        // uvm.setLastname(u.getLastname());
         return uvm;
 	}
 
 	@Override
 	public User convertToUser(UserViewModel u) {
 		User user = new User();
-        if (u.getId() != 0)
-            user.setId(u.getId());
-        user.setEmail(u.getEmail());
-        user.setFirstname(u.getFirstname());
-        user.setLastname(u.getLastname());
+        // if (u.getId() != 0)
+        //     user.setId(u.getId());
+        // user.setEmail(u.getEmail());
+        // user.setFirstname(u.getFirstname());
+        // user.setLastname(u.getLastname());
         return user;
 	}
 }

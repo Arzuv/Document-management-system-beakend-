@@ -15,7 +15,6 @@ import java.util.List;
 @Entity(name = "users")
 @Data
 public class User extends BaseEntity {
- 
     @Column(name = "email", nullable = false)
     private String email;
 
@@ -35,7 +34,5 @@ public class User extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private List<Roles> roles;
 
-    public User() {
-
-	}
+    public User() {}
 }
