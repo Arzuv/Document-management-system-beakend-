@@ -1,5 +1,7 @@
 package tm.arzuv.app.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import tm.arzuv.app.repository.UserRepository;
 import tm.arzuv.app.security.JwtAuthenticationFilter;
@@ -41,6 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
+			.cors().and()
 			//add jwt filters (1.authentication, 2.authorization)
 			.addFilter(new JwtAuthenticationFilter(authenticationManager()))
 			.addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepository))
@@ -50,6 +56,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(USER_ENDPOINT).hasAuthority("USER")
 			.antMatchers(ADMIN_ENDPOINT).hasAuthority("ADMIN");
 	}
+
+	@Bean
+    CorsConfigurationSource corsConfigurationSource() 
+    {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("POST", "GET", "OPTIONS", "DELETE", "PUT"));
+		configuration.setAllowedHeaders(Arrays.asList("X-Requested-With", "Content-Type", "Origin", "Authorization", "Accept", "Client-Security-Token", "Accept-Encoding"));
+		configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
