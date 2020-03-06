@@ -17,5 +17,5 @@ public interface DocumentRepository extends JpaRepository<Document, Integer>  {
     List<Document> findByWhomContract(String whomContract);
     List<Document> findByWhoContracted(String whoContracted);
     Document save(Document d);
-    boolean deleteById(int id);
+    void deleteById(int id);
 }

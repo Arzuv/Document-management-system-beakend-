@@ -8,12 +8,15 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Entity(name = "users")
-@Data
+@Getter @Setter @NoArgsConstructor
 public class User extends BaseEntity {
     @Column(name = "email", nullable = false)
     private String email;
@@ -32,7 +35,16 @@ public class User extends BaseEntity {
 	@ElementCollection(targetClass = Roles.class, fetch = FetchType.EAGER)
 	@CollectionTable(name="roles", joinColumns = @JoinColumn(name="user_id"))
 	@Enumerated(EnumType.STRING)
-	private List<Roles> roles;
+    private List<Roles> roles;
 
-    public User() {}
+    @Override
+    public String toString() {
+        return "User [" + "created=" + this.getCreated() + ", id=" + this.getId() 
+        + ", status=" + this.getStatus() + ", updated=" + this.getUpdated()
+         + ", active=" + active + ", email=" + email + ", firstname=" + 
+         firstname + ", lastname=" + lastname
+                + ", password=" + password + ", roles=" + roles + "]";
+    }
+    
+    
 }

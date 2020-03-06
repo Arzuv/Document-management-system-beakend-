@@ -16,15 +16,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import tm.arzuv.app.Service.UserService;
 import tm.arzuv.app.model.User;
+import tm.arzuv.app.repository.UserRepository;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
-    private UserService userService;
+    private UserRepository userRepository;
 
-    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserService userService) {
+    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
         super(authenticationManager);
-        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             // Search in the DB if we find the user by token subject (username)
             // If so, then grab user details and create spring auth token using username, pass, authorities/roles
             if (username != null) {
-                User user = userService.findByEmail(username);
+                User user = userRepository.findByEmail(username);
                 UserPrincipal principal = new UserPrincipal(user);
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                     username, null, principal.getAuthorities());

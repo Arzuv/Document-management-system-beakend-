@@ -1,16 +1,19 @@
 package tm.arzuv.app.Service;
 
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+
 import tm.arzuv.app.dao.UserViewModel;
 import tm.arzuv.app.model.User;
 
 public interface UserService {
-    public List<User> findAll(); 
-    public List<User> findAllAndSort(String condition);
-    public User findById(int id);
-    public User findByEmail(String email);
+    public ResponseEntity<List<UserViewModel>> findAll();
+    public ResponseEntity<List<UserViewModel>> findAllAndSort(String condition);
+    public ResponseEntity<UserViewModel> findById(String id);
+    public ResponseEntity<UserViewModel> findByEmail(String email);
     public User save(User u);
-    public boolean delete(int id); 
+    public ResponseEntity<String> delete(String id);
     public UserViewModel convertToUserViewModel(User u);
     public User convertToUser(UserViewModel u);
 }

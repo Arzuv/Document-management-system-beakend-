@@ -7,10 +7,12 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name="documents")
-@Data
+@Getter @Setter @NoArgsConstructor
 public class Document extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -19,13 +21,13 @@ public class Document extends BaseEntity{
 	@Column(name="dname")
 	private String dname;
 
-	@Column(name="whomContract")
+	@Column(name="whomcontract")
 	private String whomContract;
 
-	@Column(name="whoContracted")
+	@Column(name="whocontracted")
 	private String whoContracted;
 
-	@Column(name="termOfExecution")
+	@Column(name="termofexecution")
 	private Date termOfExecution;
 
 	@Column(name="dfile")

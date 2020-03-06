@@ -15,5 +15,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findByLastnameOrFirstname(String firstname, String lastname);
     User findById(int id);
     User save(User u);
-    boolean deleteById(int id);
+    void deleteById(int id);
+    boolean existsById(int id);
 }

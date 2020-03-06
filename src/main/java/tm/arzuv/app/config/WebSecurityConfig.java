@@ -6,16 +6,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
-import tm.arzuv.app.Service.UserService;
+import tm.arzuv.app.repository.UserRepository;
 import tm.arzuv.app.security.JwtAuthenticationFilter;
 import tm.arzuv.app.security.JwtAuthorizationFilter;
 import tm.arzuv.app.security.UserPrincipalDetailsService;
@@ -24,12 +22,12 @@ import tm.arzuv.app.security.UserPrincipalDetailsService;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserPrincipalDetailsService userPrincipalDetailsService;
-	private UserService userService;
+	private UserRepository userRepository;
 
 	@Autowired
-	public WebSecurityConfig(UserPrincipalDetailsService userPrincipalDetailsService, UserService userService) {
+	public WebSecurityConfig(UserPrincipalDetailsService userPrincipalDetailsService, UserRepository userRepository) {
 		this.userPrincipalDetailsService = userPrincipalDetailsService;
-		this.userService = userService;
+		this.userRepository = userRepository;
 	}
 
 	private static final String ADMIN_ENDPOINT = "/admin/**";
@@ -45,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			//add jwt filters (1.authentication, 2.authorization)
 			.addFilter(new JwtAuthenticationFilter(authenticationManager()))
-			.addFilter(new JwtAuthorizationFilter(authenticationManager(), userService))
+			.addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepository))
 			.authorizeRequests()
 			//configure access roles
 			.antMatchers(HttpMethod.POST, LOGIN_ENDPOINT).permitAll()
