@@ -29,21 +29,8 @@ public class User extends BaseEntity {
     @Column(name = "lastname", nullable = false)
 	private String lastname;
 	
-	private boolean active;
-	
 	@ElementCollection(targetClass = Roles.class, fetch = FetchType.EAGER)
 	@CollectionTable(name="roles", joinColumns = @JoinColumn(name="user_id"))
 	@Enumerated(EnumType.STRING)
     private List<Roles> roles;
-
-    @Override
-    public String toString() {
-        return "User [" + "created=" + this.getCreated() + ", id=" + this.getId() 
-        + ", status=" + this.getStatus() + ", updated=" + this.getUpdated()
-         + ", active=" + active + ", email=" + email + ", firstname=" + 
-         firstname + ", lastname=" + lastname
-                + ", password=" + password + ", roles=" + roles + "]";
-    }
-    
-    
 }

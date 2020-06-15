@@ -2,19 +2,22 @@ package tm.arzuv.app.repository;
 
 import java.util.*;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import tm.arzuv.app.model.Status;
 import tm.arzuv.app.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-    User findByEmail(String email); 
-    List<User> findAll();
-    List<User> findAll(Sort sort);
-    List<User> findByLastnameOrFirstname(String firstname, String lastname);
+    User findByEmailAndStatus(String email, Status status);
+    Page<User> findAll(Pageable pageable);
     User findById(int id);
-    User save(User u);
-    void deleteById(int id);
-    boolean existsById(int id);
+    // SELECT DISTINCT u FROM users u RIGHT JOIN documents d ON u.id = d.user_id
+    @Query(value="SELECT * FROM users WHERE (status = :status) AND (id IN (SELECT user_id FROM documents))", nativeQuery = true)
+    Page<User> findAuthors(@Param("status") int status, Pageable pageable);
 }

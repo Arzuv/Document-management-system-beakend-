@@ -1,22 +1,18 @@
 package tm.arzuv.app.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import tm.arzuv.app.dto.DocumentViewModel;
 
 import java.util.Date;
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-
-import tm.arzuv.app.dao.DocumentViewModel;
-import tm.arzuv.app.model.Document;
 
 public interface DocumentService {
-    public ResponseEntity<List<DocumentViewModel>> findAll();
-    public ResponseEntity<List<DocumentViewModel>> findAllAndSort(String condition);
-    public ResponseEntity<DocumentViewModel> findById(String id);
-    public ResponseEntity<DocumentViewModel> findByName(String name);
-    public ResponseEntity<List<DocumentViewModel>> findByWhomContract(String whomContract);
-    public ResponseEntity<List<DocumentViewModel>> findByWhoContracted(String whoContracted);
-    public ResponseEntity<DocumentViewModel> save(Document d);
-    public ResponseEntity<String> delete(String id);
-    public DocumentViewModel convertToDocumentViewModel(Document d);
-    public Document convertToDocument(DocumentViewModel d);
+    public ResponseEntity<Page<DocumentViewModel>> findAll(String name, Integer page, String sortBy);
+    public ResponseEntity<Page<DocumentViewModel>> findDocumentsByAuthor(String name, Integer page, String sortBy);
+    public ResponseEntity<Page<DocumentViewModel>> findDocumentsByCreatedDate(Date createdDate, Integer page, String sortBy);
+    public ResponseEntity<Page<DocumentViewModel>> findDocumentsByWhomContract(String whomContract, Integer page, String sortBy);
+    public ResponseEntity<Page<DocumentViewModel>> findDocumentsByWhoContracted(String whoContracted, Integer page, String sortBy);
+    public ResponseEntity<Page<DocumentViewModel>> findDocumentsByTermOfExecutionDate(Date termOfExecution, Integer page, String sortBy);
+    public ResponseEntity<DocumentViewModel> update(DocumentViewModel d);
+    public ResponseEntity<DocumentViewModel> create(DocumentViewModel d);
+    public ResponseEntity delete(Integer id);
 }

@@ -31,5 +31,5 @@ public class Document extends BaseEntity{
 	private Date termOfExecution;
 
 	@Column(name="dfile")
-	private byte [] dfile;
+	private String dfile;
 }

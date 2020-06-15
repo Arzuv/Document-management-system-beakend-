@@ -1,4 +1,4 @@
-package tm.arzuv.app.dao;
+package tm.arzuv.app.dto;
 
 import lombok.Getter;
 import lombok.Setter;
