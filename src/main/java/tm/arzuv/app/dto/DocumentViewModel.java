@@ -3,6 +3,7 @@ package tm.arzuv.app.dto;
 import java.util.Arrays;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import tm.arzuv.app.repository.UserRepository;
 
 @Getter @Setter @NoArgsConstructor
 public class DocumentViewModel {
+	@JsonIgnore
 	private DocumentRepository documentRepository;
 	public void init(DocumentRepository documentRepository) {
 		this.documentRepository = documentRepository;

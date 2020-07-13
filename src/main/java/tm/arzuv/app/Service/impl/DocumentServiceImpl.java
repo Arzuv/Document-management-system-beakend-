@@ -132,6 +132,10 @@ public final class DocumentServiceImpl implements DocumentService {
         try {
             d.init(documentRepository);
             Document document = d.toDocument();
+
+            if (document.getAuthor().getId() != getIdAuth())
+                return new ResponseEntity<>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+
             document = documentRepository.save(document);
             return new ResponseEntity<>(DocumentViewModel.fromDocument(document), HttpStatus.OK);
         } catch (Exception e) {
@@ -158,6 +162,10 @@ public final class DocumentServiceImpl implements DocumentService {
             Document document = documentRepository.findById((int)id);
             if (document.getAuthor().getId() != getIdAuth())
                 return new ResponseEntity<>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+
+            if (document == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
 
             document.setStatus(Status.DELETED);
             documentRepository.save(document);
