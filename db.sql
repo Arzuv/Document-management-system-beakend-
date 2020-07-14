@@ -30,7 +30,7 @@ create table documents (
     dfile bytea,
     created TIMESTAMP WITH TIME ZONE default CURRENT_TIMESTAMP,
     updated TIMESTAMP WITH TIME ZONE default CURRENT_TIMESTAMP,
-    status STATUS_TYPE default 'ACTIVE',
+    status TINYINT default 0
     FOREIGN key (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
@@ -38,10 +38,6 @@ insert into users (email, password, firstname, lastname)
             VALUES ('admin@mail.com', '12345', 'admin', 'admin');
 insert into users (email, password, firstname, lastname) 
             VALUES ('user@mail.com', '12345', 'user', 'user');
-insert into users (email, password, firstname, lastname) 
-            VALUES ('maccalen@mail.com', '12345', 'maccalen', 'tomos');
-insert into users (email, password, firstname, lastname) 
-            VALUES ('jack@mail.com', '12345', 'adam', 'jack');            
-insert into users (email, password, firstname, lastname) 
-            VALUES ('twopack@mail.com', '12345', 'two', 'pack');            
-INSERT INTO roles (user_id, my_role) VALUES (5, 'admin');
+         
+INSERT INTO roles (user_id, my_role) VALUES (1, 'ADMIN');
+INSERT INTO roles (user_id, my_role) VALUES (2, 'USER');

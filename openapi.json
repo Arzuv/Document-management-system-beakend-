@@ -1,0 +1,642 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Document management system",
+    "contact": {
+      "name": "Innovise group",
+      "email": "contact@innowise-group.com",
+      "url": "https://innowise-group.com/"
+    },
+    "license": {
+      "name": "innowise-group",
+      "url": "://innowise-group.com/"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://{path}:{port}/api",
+      "description": "Url address a server",
+      "variables": {
+        "path": {
+          "description": "domain adress",
+          "default": "localhost"
+        },
+        "port": {
+          "description": "A port the server",
+          "enum": [
+            "8080",
+            "443",
+            "9090"
+          ],
+          "default": "9090"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "description": "Log in api",
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "responses": {
+          "200": {
+            "description": "A token for to get access to the system",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/user"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Email and password",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/user/all": {
+      "description": "Get all users",
+      "get": {
+        "tags": [
+          "Admin request"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/getAllUsers"
+          },
+          "204": {
+            "$ref": "#/components/responses/noContent"
+          },
+          "403": {
+            "$ref": "#/components/responses/NotAccess"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/sortBy"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "ADMIN"
+            ]
+          }
+        ]
+      }
+    },
+    "/admin/document/all": {
+      "description": "Get all documents",
+      "get": {
+        "tags": [
+          "Admin request"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/getAllDocuments"
+          },
+          "204": {
+            "$ref": "#/components/responses/noContent"
+          },
+          "403": {
+            "$ref": "#/components/responses/NotAccess"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/name"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/sortBy"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "ADMIN"
+            ]
+          }
+        ]
+      }
+    },
+    "/document/all": {
+      "description": "Get all documents an author",
+      "get": {
+        "tags": [
+          "User request"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/getAllDocuments"
+          },
+          "204": {
+            "$ref": "#/components/responses/noContent"
+          },
+          "403": {
+            "$ref": "#/components/responses/NotAccess"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/name"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/sortBy"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/document/all/filter/dateCreated": {
+      "description": "Get all documents an author by date created",
+      "get": {
+        "tags": [
+          "User request"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/getAllDocuments"
+          },
+          "204": {
+            "$ref": "#/components/responses/noContent"
+          },
+          "403": {
+            "$ref": "#/components/responses/NotAccess"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/createdDate"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/sortBy"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/document/all/filter/whoContracted": {
+      "description": "Get all documents an author by who contracted",
+      "get": {
+        "tags": [
+          "User request"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/getAllDocuments"
+          },
+          "204": {
+            "$ref": "#/components/responses/noContent"
+          },
+          "403": {
+            "$ref": "#/components/responses/NotAccess"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/whoContracted"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/sortBy"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/document/all/filter/whomContract": {
+      "description": "Get all documents an author by whom contract",
+      "get": {
+        "tags": [
+          "User request"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/getAllDocuments"
+          },
+          "204": {
+            "$ref": "#/components/responses/noContent"
+          },
+          "403": {
+            "$ref": "#/components/responses/NotAccess"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/whomContract"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/sortBy"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/document/all/filter/dateContract": {
+      "description": "Get all documents an author by dateContract",
+      "get": {
+        "tags": [
+          "User request"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/getAllDocuments"
+          },
+          "204": {
+            "$ref": "#/components/responses/noContent"
+          },
+          "403": {
+            "$ref": "#/components/responses/NotAccess"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/dateContract"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/sortBy"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/document/create": {
+      "description": "Create a new document",
+      "post": {
+        "tags": [
+          "User request"
+        ],
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/getDocument"
+          },
+          "403": {
+            "$ref": "#/components/responses/NotAccess"
+          }
+        },
+        "requestBody": {
+          "$ref": "#/components/requestBodies/requestDocument"
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/document/update": {
+      "description": "Update a document",
+      "put": {
+        "tags": [
+          "User request"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/getDocument"
+          },
+          "403": {
+            "$ref": "#/components/responses/NotAccess"
+          }
+        },
+        "requestBody": {
+          "$ref": "#/components/requestBodies/requestDocument"
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "USER"
+            ]
+          }
+        ]
+      }
+    },
+    "/document/delete": {
+      "description": "Delete a document",
+      "delete": {
+        "tags": [
+          "User request"
+        ],
+        "responses": {
+          "200": {
+            "description": "Document was deleted"
+          },
+          "403": {
+            "$ref": "#/components/responses/NotAccess"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/idDocument"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "USER"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "user": {
+        "description": "The Model a user",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "uniqueItems": true,
+            "nullable": false
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "nullable": false
+          },
+          "firstname": {
+            "type": "string",
+            "nullable": false
+          },
+          "lastname": {
+            "type": "string",
+            "nullable": false
+          },
+          "created": {
+            "type": "string",
+            "format": "date"
+          },
+          "roles": {
+            "type": "string",
+            "enum": [
+              "ADMIN",
+              "USER"
+            ]
+          }
+        }
+      },
+      "document": {
+        "description": "The model a document",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "author": {
+            "type": "object",
+            "$ref": "#/components/schemas/user"
+          },
+          "name": {
+            "type": "string",
+            "nullable": false
+          },
+          "whomContract": {
+            "type": "string",
+            "nullable": false
+          },
+          "whoContracted": {
+            "type": "string",
+            "nullable": false
+          },
+          "termOfExecution": {
+            "type": "string",
+            "format": "date",
+            "nullable": false
+          },
+          "file": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "format": "date"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "DELETED"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "getAllUsers": {
+        "description": "Get All users of array",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/user"
+              }
+            }
+          }
+        }
+      },
+      "getAllDocuments": {
+        "description": "Get all documents of array",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/document"
+              }
+            }
+          }
+        }
+      },
+      "getDocument": {
+        "description": "Wos created a new document",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "$ref": "#/components/schemas/document"
+            }
+          }
+        }
+      },
+      "NotAccess": {
+        "description": "Not access"
+      },
+      "noContent": {
+        "description": "No content"
+      }
+    },
+    "parameters": {
+      "sortBy": {
+        "name": "sortBy",
+        "description": "Option to set the sort",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "page": {
+        "name": "page",
+        "in": "query",
+        "description": "Option to set the page",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "name": {
+        "name": "name",
+        "in": "query",
+        "description": "Option to set the name",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "createdDate": {
+        "name": "createdDate",
+        "in": "query",
+        "description": "Option to set the created date",
+        "schema": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "whoContracted": {
+        "name": "whoContracted",
+        "in": "query",
+        "description": "Option to set the who contracted",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "whomContract": {
+        "name": "whomContract",
+        "in": "query",
+        "description": "Option to set the whom contract",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "dateContract": {
+        "name": "dateContract",
+        "in": "query",
+        "description": "Option to set the date contract",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "idDocument": {
+        "name": "id",
+        "in": "query",
+        "description": "Option to set the id",
+        "schema": {
+          "type": "integer"
+        }
+      }
+    },
+    "requestBodies": {
+      "requestDocument": {
+        "description": "Properties and values a document",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/document"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
