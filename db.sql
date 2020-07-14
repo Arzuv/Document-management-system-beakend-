@@ -9,7 +9,7 @@ create table users (
     lastname VARCHAR(50) NOT NULL,
     created TIMESTAMP WITH TIME ZONE default CURRENT_TIMESTAMP,
     updated TIMESTAMP WITH TIME ZONE default CURRENT_TIMESTAMP,
-    status STATUS_TYPE default 'ACTIVE'
+    status SMALLINT default 0
 );
 
 create table roles (
