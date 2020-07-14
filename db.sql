@@ -1,7 +1,6 @@
 create database document;
 
 CREATE TYPE ROLES_TYPE as ENUM ('USER', 'ADMIN');
-CREATE TYPE STATUS_TYPE as ENUM ('ACTIVE', 'NOT_ACTIVE', 'DELETED')
 create table users (
     id SERIAL  primary key,
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -30,7 +29,7 @@ create table documents (
     dfile bytea,
     created TIMESTAMP WITH TIME ZONE default CURRENT_TIMESTAMP,
     updated TIMESTAMP WITH TIME ZONE default CURRENT_TIMESTAMP,
-    status TINYINT default 0
+    status SMALLINT default 0,
     FOREIGN key (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
